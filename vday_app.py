@@ -7,9 +7,17 @@ st.set_page_config(page_title="For Shona ❤️", page_icon="💘", layout="cent
 if "page" not in st.session_state:
     st.session_state.page = 1
 
+if "error_msg" not in st.session_state:
+    st.session_state.error_msg = ""
+
 # ---------------- PAGE 1 ----------------
 if st.session_state.page == 1:
     st.markdown("<h1 style='text-align:center;'>Welcome Shona 😏</h1>", unsafe_allow_html=True)
+
+    if st.session_state.error_msg:
+        st.warning(st.session_state.error_msg)
+        st.session_state.error_msg = ""
+
     time.sleep(2)
     st.session_state.page = 2
     st.rerun()
@@ -45,8 +53,9 @@ elif st.session_state.page == 3:
 
     with col2:
         if st.button("False 🙄"):
-            st.warning("Wrong answer detected 🚨")
-            st.info("System override: Forcing TRUE 😏")
+            st.session_state.error_msg = "wrong button pressed babe :("
+            st.session_state.page = 1
+            st.rerun()
 
 
 # ---------------- PAGE 4 ----------------
@@ -73,31 +82,10 @@ elif st.session_state.page == 5:
             st.rerun()
 
     with col2:
-        st.markdown("""
-        <style>
-        #noBtn {
-            position: relative;
-            padding: 10px 25px;
-            background-color: #ff4b4b;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        </style>
-
-        <button id="noBtn">NO ❌</button>
-
-        <script>
-        const btn = document.getElementById("noBtn");
-        btn.onmouseover = function() {
-            const x = Math.floor(Math.random() * 200) - 100;
-            const y = Math.floor(Math.random() * 200) - 100;
-            btn.style.transform = `translate(${x}px, ${y}px)`;
-        };
-        </script>
-        """, unsafe_allow_html=True)
+        if st.button("NO ❌"):
+            st.session_state.error_msg = "wrong button pressed babe :("
+            st.session_state.page = 1
+            st.rerun()
 
 
 # ---------------- PAGE 6 (FINAL) ----------------
