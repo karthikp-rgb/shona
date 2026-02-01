@@ -9,13 +9,10 @@ if "page" not in st.session_state:
 
 # ---------------- PAGE 1 ----------------
 if st.session_state.page == 1:
-    st.markdown("<h1 style='text-align:center;'>Welcome, Shona 😏</h1>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align:center;'>This website was made using 3 things:</p>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align:center;'>1. Python 🐍<br>2. Streamlit 💻<br>3. Too much love for you 💖</p>", unsafe_allow_html=True)
-    
-    if st.button("Continue (no escape) 👉"):
-        st.session_state.page = 2
-        st.experimental_rerun()
+    st.markdown("<h1 style='text-align:center;'>Welcome Shona 😏</h1>", unsafe_allow_html=True)
+    time.sleep(2)
+    st.session_state.page = 2
+    st.rerun()
 
 
 # ---------------- PAGE 2 ----------------
@@ -30,7 +27,7 @@ elif st.session_state.page == 2:
 
     if st.button("Open"):
         st.session_state.page = 3
-        st.experimental_rerun()
+        st.rerun()
 
 
 # ---------------- PAGE 3 ----------------
@@ -44,7 +41,7 @@ elif st.session_state.page == 3:
     with col1:
         if st.button("True 😌"):
             st.session_state.page = 4
-            st.experimental_rerun()
+            st.rerun()
 
     with col2:
         if st.button("False 🙄"):
@@ -60,7 +57,7 @@ elif st.session_state.page == 4:
 
     if st.button("Go to next disaster 👉"):
         st.session_state.page = 5
-        st.experimental_rerun()
+        st.rerun()
 
 
 # ---------------- PAGE 5 ----------------
@@ -73,18 +70,34 @@ elif st.session_state.page == 5:
     with col1:
         if st.button("YES 💖"):
             st.session_state.page = 6
-            st.experimental_rerun()
+            st.rerun()
 
     with col2:
-        if st.button("NO ❌"):
-            responses = [
-                "Nice try 😏",
-                "That button is decorative only",
-                "Incorrect choice, please retry",
-                "System says: You mean YES",
-                "Bro really thought NO would work"
-            ]
-            st.warning(random.choice(responses))
+        st.markdown("""
+        <style>
+        #noBtn {
+            position: relative;
+            padding: 10px 25px;
+            background-color: #ff4b4b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        </style>
+
+        <button id="noBtn">NO ❌</button>
+
+        <script>
+        const btn = document.getElementById("noBtn");
+        btn.onmouseover = function() {
+            const x = Math.floor(Math.random() * 200) - 100;
+            const y = Math.floor(Math.random() * 200) - 100;
+            btn.style.transform = `translate(${x}px, ${y}px)`;
+        };
+        </script>
+        """, unsafe_allow_html=True)
 
 
 # ---------------- PAGE 6 (FINAL) ----------------
